@@ -298,19 +298,22 @@ class AdminController {
             
             for ($i = 1; $i <= 4; $i++) {
                 $answer = trim($lines[$i]);
-                // Удаляем галочку если есть (поддерживаем разные варианты)
+                
+                // Сначала удаляем галочки (поддерживаем разные варианты)
+                // Используем mb_substr для корректной работы с Unicode символами
                 if (str_ends_with($answer, '✓') || str_ends_with($answer, '✅') || str_ends_with($answer, '[x]')) {
-                    $answer = trim(substr($answer, 0, -1));
+                    $answer = trim(mb_substr($answer, 0, -1));
                     $correct = $i - 1; // Индекс правильного ответа (0-3)
                 }
                 // Дополнительная проверка на галочку в начале
                 if (str_starts_with($answer, '✓') || str_starts_with($answer, '✅')) {
-                    $answer = trim(substr($answer, 1));
+                    $answer = trim(mb_substr($answer, 1));
                     $correct = $i - 1;
                 }
-                // Удаляем знак вопроса в конце ответа
-                $answer = rtrim($answer, '?');
+                
+                // Очистка от лишних пробелов
                 $answer = trim($answer);
+                
                 $answers[] = $answer;
             }
             
