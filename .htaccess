@@ -1,0 +1,31 @@
+# Конфигурация Apache для роутинга
+# Перенаправляем все запросы на index.php, кроме существующих файлов
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Базовый путь приложения
+    RewriteBase /linux-learn/
+    
+    # Не перенаправлять существующие файлы и директории
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Перенаправлять все запросы на index.php
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Установка кодировки по умолчанию
+AddDefaultCharset UTF-8
+
+# Запрет доступа к скрытым файлам
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Запрет доступа к файлам .htaccess и .htpasswd
+<FilesMatch "^\.(htaccess|htpasswd)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
