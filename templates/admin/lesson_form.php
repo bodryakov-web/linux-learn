@@ -41,9 +41,9 @@ if (!empty($formData)) {
 
     <section class="admin-lesson-form">
         <div class="admin-lesson-form__container">
-            <h1 class="admin-lesson-form__title">
+            <h2 class="admin-lesson-form__title">
                 <?php echo $isEdit ? 'Редактирование урока' : 'Создание нового урока'; ?>
-            </h1>
+            </h2>
             
             <?php if (!empty($errors)): ?>
             <div class="admin-lesson-form__errors">
