@@ -8,7 +8,7 @@ require_once __DIR__ . '/header.php';
 
     <article class="lesson">
         <div class="lesson__container">
-            <h1 class="lesson__title"><?php echo htmlspecialchars($lesson['title_ru']); ?></h1>
+            <h2 class="lesson__title"><?php echo htmlspecialchars($lesson['title_ru']); ?></h2>
             
             <!-- Секция теории (без заголовка) -->
             <section class="lesson__section lesson__section--theory">

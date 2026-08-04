@@ -9,7 +9,7 @@ require_once __DIR__ . '/admin_header.php';
     <section class="admin-dashboard">
         <div class="admin-dashboard__container">
             <div class="admin-dashboard__header">
-                <h1 class="admin-dashboard__title">Управление уроками</h1>
+                <h2 class="admin-dashboard__title">Управление уроками</h2>
                 <a href="<?php echo BASE_URL; ?>/bod/create" 
                    class="button button--primary" 
                    data-create-lesson

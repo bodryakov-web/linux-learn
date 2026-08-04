@@ -8,7 +8,7 @@ require_once __DIR__ . '/header.php';
 
     <section class="lessons">
         <div class="lessons__container">
-            <h1 class="lessons__title">Уроки</h1>
+            <h2 class="lessons__title">Уроки</h2>
             <div class="lessons__list">
                 <?php if (!empty($lessons)): ?>
                     <?php foreach ($lessons as $lesson): ?>
