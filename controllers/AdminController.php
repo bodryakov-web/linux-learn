@@ -104,6 +104,9 @@ class AdminController {
         
         // Декодируем JSON контент
         $content = json_decode($lesson['content'], true);
+        $testsText = isset($content['tests']) && is_array($content['tests'])
+            ? $this->formatTestsToText($content['tests'])
+            : '';
         
         require_once __DIR__ . '/../templates/admin/lesson_form.php';
     }
@@ -263,6 +266,44 @@ class AdminController {
             'lesson_order' => $order,
             'content' => $jsonContent
         ];
+    }
+
+    /**
+     * Преобразует JSON-массив тестов в текстовый формат для админки
+     *
+     * @param array $tests Массив тестов из JSON
+     * @return string Текстовый формат тестов
+     */
+    private function formatTestsToText($tests) {
+        $blocks = [];
+
+        foreach ($tests as $test) {
+            if (!is_array($test)) {
+                continue;
+            }
+
+            $question = isset($test['question']) ? (string)$test['question'] : '';
+            $answers = isset($test['answers']) && is_array($test['answers']) ? $test['answers'] : [];
+            $correctIndex = isset($test['correct']) ? (int)$test['correct'] : -1;
+
+            if ($question === '' || count($answers) < 4) {
+                continue;
+            }
+
+            $lines = [$question];
+
+            for ($i = 0; $i < 4; $i++) {
+                $answer = isset($answers[$i]) ? (string)$answers[$i] : '';
+                if ($i === $correctIndex) {
+                    $answer .= ' ✓';
+                }
+                $lines[] = $answer;
+            }
+
+            $blocks[] = implode("\n", $lines);
+        }
+
+        return implode("\n\n", $blocks);
     }
     
     /**

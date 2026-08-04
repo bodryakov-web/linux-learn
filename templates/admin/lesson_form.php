@@ -9,6 +9,7 @@ require_once __DIR__ . '/admin_header.php';
 $isEdit = isset($lesson);
 $lessonData = $isEdit ? $lesson : null;
 $content = $isEdit && isset($content) ? $content : null;
+$testsText = isset($testsText) ? $testsText : '';
 
 // Получаем ошибки из сессии если есть
 $errors = isset($_SESSION['form_errors']) ? $_SESSION['form_errors'] : [];
@@ -33,9 +34,10 @@ if (!empty($formData)) {
     
     $content = [
         'theory' => $formData['theory'] ?? '',
-        'tests' => '',
+        'tests' => $formData['tests'] ?? '',
         'tasks' => $tasksArray
     ];
+    $testsText = $formData['tests'] ?? '';
 }
 ?>
 
@@ -139,7 +141,7 @@ if (!empty($formData)) {
 Ответ4
 
 Вопрос2?
-..."></textarea>
+..."><?php echo htmlspecialchars($testsText); ?></textarea>
                     <p class="form__help">
                         Формат: вопрос на первой строке, затем 4 варианта ответа (один с галочкой ✓), блоки разделены пустой строкой
                     </p>
