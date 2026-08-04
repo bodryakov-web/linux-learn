@@ -564,7 +564,7 @@
     }
 
     .lesson__section-title {
-        font-size: var(--font-size-2xl);
+        font-size: var(--font-size-lg);
         margin-bottom: var(--spacing-lg);
         color: var(--color-primary);
     }
@@ -593,7 +593,7 @@
     }
 
     .test__question {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-base);
         margin-bottom: var(--spacing-md);
         color: var(--color-text-primary);
     }

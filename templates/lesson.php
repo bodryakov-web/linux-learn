@@ -20,13 +20,13 @@ require_once __DIR__ . '/header.php';
             <!-- Секция тестов -->
             <?php if (!empty($content['tests'])): ?>
             <section class="lesson__section lesson__section--tests">
-                <h2 class="lesson__section-title">Тестирование</h2>
+                <h3 class="lesson__section-title">Тестирование</h3>
                 <div class="tests">
                     <?php foreach ($content['tests'] as $testIndex => $test): ?>
                         <div class="test" data-test="<?php echo $testIndex; ?>">
-                            <h3 class="test__question">
+                            <h4 class="test__question">
                                 <?php echo htmlspecialchars($test['question']); ?>
-                            </h3>
+                            </h4>
                             <div class="test__answers">
                                 <?php foreach ($test['answers'] as $answerIndex => $answer): ?>
                                     <button class="test__answer" 
@@ -46,7 +46,7 @@ require_once __DIR__ . '/header.php';
             <!-- Секция задач -->
             <?php if (!empty($content['tasks'])): ?>
             <section class="lesson__section lesson__section--tasks">
-                <h2 class="lesson__section-title">Задачи</h2>
+                <h3 class="lesson__section-title">Задачи</h3>
                 <div class="tasks">
                     <?php foreach ($content['tasks'] as $task): ?>
                         <div class="task">
