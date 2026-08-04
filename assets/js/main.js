@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация темы
     initTheme();
+    initLessonCodeCopies();
     
     // Обработчик переключения темы
     const themeToggle = document.querySelector('[data-theme-toggle]');
@@ -123,4 +124,66 @@ function isStorageSupported() {
     } catch (e) {
         return false;
     }
+}
+
+/**
+ * Добавляет кнопки копирования к фрагментам кода в секции теории уроков
+ */
+function initLessonCodeCopies() {
+    const lessonContent = document.querySelector('.lesson__content');
+    if (!lessonContent) {
+        return;
+    }
+
+    const codeBlocks = lessonContent.querySelectorAll('pre');
+    codeBlocks.forEach((block) => {
+        if (block.dataset.copyReady === 'true') {
+            return;
+        }
+
+        block.dataset.copyReady = 'true';
+        block.classList.add('lesson-code-block');
+
+        const copyButton = document.createElement('button');
+        copyButton.type = 'button';
+        copyButton.className = 'lesson-code-block__copy';
+        copyButton.textContent = 'Copy';
+        copyButton.setAttribute('aria-label', 'Copy code block');
+
+        copyButton.addEventListener('click', async () => {
+            const codeElement = block.querySelector('code');
+            const code = codeElement ? codeElement.textContent : block.textContent;
+
+            try {
+                await navigator.clipboard.writeText(code.trimEnd());
+                copyButton.textContent = 'Copied';
+                copyButton.classList.add('lesson-code-block__copy--done');
+                window.setTimeout(() => {
+                    copyButton.textContent = 'Copy';
+                    copyButton.classList.remove('lesson-code-block__copy--done');
+                }, 1500);
+            } catch (error) {
+                const selection = window.getSelection();
+                const range = document.createRange();
+
+                range.selectNodeContents(block);
+                selection.removeAllRanges();
+                selection.addRange(range);
+
+                try {
+                    document.execCommand('copy');
+                    copyButton.textContent = 'Copied';
+                    copyButton.classList.add('lesson-code-block__copy--done');
+                    window.setTimeout(() => {
+                        copyButton.textContent = 'Copy';
+                        copyButton.classList.remove('lesson-code-block__copy--done');
+                    }, 1500);
+                } finally {
+                    selection.removeAllRanges();
+                }
+            }
+        });
+
+        block.insertBefore(copyButton, block.firstChild);
+    });
 }
