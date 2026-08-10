@@ -19,7 +19,12 @@ document.addEventListener('DOMContentLoaded', function() {
  */
 function handleAnswerClick(event) {
     const button = event.currentTarget;
-    const testContainer = button.closest('[data-test]');
+    // Ищем именно блок вопроса, чтобы заблокировать все его варианты ответа.
+    const testContainer = button.closest('.test');
+
+    if (!testContainer) {
+        return;
+    }
     
     // Проверяем, уже ли был дан ответ на этот вопрос
     if (testContainer.hasAttribute('data-answered')) {
@@ -67,7 +72,7 @@ function handleAnswerClick(event) {
  * Эта функция может быть использована для сброса состояния тестов
  */
 function resetAllTests() {
-    const testContainers = document.querySelectorAll('[data-test]');
+    const testContainers = document.querySelectorAll('.test[data-test]');
     
     testContainers.forEach(container => {
         container.removeAttribute('data-answered');
@@ -87,7 +92,7 @@ function resetAllTests() {
  * @returns {Object} Объект со статистикой (всего, правильно, неправильно)
  */
 function getTestStatistics() {
-    const testContainers = document.querySelectorAll('[data-test]');
+    const testContainers = document.querySelectorAll('.test[data-test]');
     let total = 0;
     let correct = 0;
     let incorrect = 0;

@@ -30,7 +30,6 @@ require_once __DIR__ . '/header.php';
                             <div class="test__answers">
                                 <?php foreach ($test['answers'] as $answerIndex => $answer): ?>
                                     <button class="test__answer" 
-                                            data-test="<?php echo $testIndex; ?>" 
                                             data-answer="<?php echo $answerIndex; ?>"
                                             data-correct="<?php echo $test['correct']; ?>">
                                         <?php echo htmlspecialchars($answer); ?>

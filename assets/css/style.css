@@ -663,9 +663,21 @@
         border-color: var(--color-primary);
     }
 
+    .test__answer:disabled {
+        cursor: not-allowed;
+    }
+
+    .test__answer:disabled:hover {
+        border-color: var(--color-border);
+    }
+
     .test__answer[data-answered="correct"] {
         border-color: var(--color-success);
         background-color: oklch(0.6 0.15 140 / 0.1);
+    }
+
+    .test__answer[data-answered="correct"]:disabled:hover {
+        border-color: var(--color-success);
     }
 
     .test__answer[data-answered="correct"]::after {
@@ -679,6 +691,10 @@
     .test__answer[data-answered="incorrect"] {
         border-color: var(--color-danger);
         background-color: oklch(0.5 0.15 25 / 0.1);
+    }
+
+    .test__answer[data-answered="incorrect"]:disabled:hover {
+        border-color: var(--color-danger);
     }
 
     .test__answer[data-answered="incorrect"]::after {
