@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Учебный курс по командам терминала Linux">
+    <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/assets/favicon.ico">
     <title>Linux Learn - Команды терминала Linux</title>
     
     <!-- Подключение Google Fonts - Roboto -->
