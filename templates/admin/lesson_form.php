@@ -202,6 +202,8 @@ if (!empty($formData)) {
         import {
             ClassicEditor,
             Essentials,
+            Plugin,
+            ButtonView,
             Paragraph,
             Bold,
             Italic,
@@ -213,12 +215,70 @@ if (!empty($formData)) {
             FontSize
         } from 'ckeditor5';
 
+        const codeBlockTinyIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="m8.25 7.25-2.5 2.75 2.5 2.75.7-.7L7.15 10l1.85-2.05-.75-.7Zm3.5 0-.75.7 1.85 2.05-1.85 2.05.7.7 2.5-2.75-2.45-2.75Z"/></svg>';
+
+        class InsertCodeBlockTiny extends Plugin {
+            init() {
+                const editor = this.editor;
+
+                editor.model.schema.extend('codeBlock', {
+                    allowAttributes: 'codeBlockTiny'
+                });
+
+                editor.conversion.for('downcast').add(dispatcher => {
+                    dispatcher.on('attribute:codeBlockTiny:codeBlock', (event, data, conversionApi) => {
+                        const viewElement = conversionApi.mapper.toViewElement(data.item);
+
+                        if (!viewElement) {
+                            return;
+                        }
+
+                        if (data.attributeNewValue) {
+                            conversionApi.writer.addClass('code-block-tiny', viewElement);
+                            conversionApi.writer.setStyle('font-size', '50%', viewElement);
+                        } else {
+                            conversionApi.writer.removeClass('code-block-tiny', viewElement);
+                            conversionApi.writer.removeStyle('font-size', viewElement);
+                        }
+                    });
+                });
+
+                editor.ui.componentFactory.add('insertCodeBlockTiny', locale => {
+                    const button = new ButtonView(locale);
+
+                    button.set({
+                        label: 'Insert Code block Tiny',
+                        icon: codeBlockTinyIcon,
+                        withText: false,
+                        tooltip: true
+                    });
+
+                    button.on('execute', () => {
+                        editor.execute('fontSize', { value: 'tiny' });
+                        editor.execute('codeBlock');
+
+                        editor.model.change(writer => {
+                            for (const block of editor.model.document.selection.getSelectedBlocks()) {
+                                if (block.is('element', 'codeBlock')) {
+                                    writer.setAttribute('codeBlockTiny', true, block);
+                                }
+                            }
+                        });
+
+                        editor.editing.view.focus();
+                    });
+
+                    return button;
+                });
+            }
+        }
+
         let editor;
 
         ClassicEditor
             .create(document.querySelector('#theory'), {
-                plugins: [Essentials, Paragraph, Bold, Italic, CodeBlock, Code, Link, Table, TableToolbar, FontSize],
-                toolbar: ['codeBlock', '|', 'code', '|', 'bold', 'italic', '|', 'fontSize', '|', 'link', '|', 'insertTable'],
+                plugins: [Essentials, Paragraph, Bold, Italic, CodeBlock, Code, Link, Table, TableToolbar, FontSize, InsertCodeBlockTiny],
+                toolbar: ['codeBlock', 'insertCodeBlockTiny', '|', 'code', '|', 'bold', 'italic', '|', 'fontSize', '|', 'link', '|', 'insertTable'],
                 language: 'ru',
                 placeholder: 'Введите теоретический материал...'
             })

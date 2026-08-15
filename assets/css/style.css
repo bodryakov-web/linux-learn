@@ -240,6 +240,12 @@
         border-radius: 0;
     }
 
+    pre.code-block-tiny,
+    pre.code-block-tiny code,
+    pre.code-block-tiny span {
+        font-size: 0.5em !important;
+    }
+
     .lesson-code-block__copy {
         position: absolute;
         top: var(--spacing-sm);
