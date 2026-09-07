@@ -88,7 +88,7 @@
         --color-border-light: oklch(0.9 0.01 250);
 
         --color-code-background: oklch(98% 0 0);
-        --color-code-text: oklch(0.3 0.05 250);
+        --color-code-text: oklch(0.1 0 0);
 
         /* Размеры шрифта */
         --font-size-xs: clamp(1rem, 1rem + 0.1vw, 1.5rem);
@@ -669,9 +669,9 @@
         border-color: var(--color-primary);
     }
 
-    .test__answer:disabled {
+    /* .test__answer:disabled {
         cursor: not-allowed;
-    }
+    } */
 
     .test__answer:disabled:hover {
         border-color: var(--color-border);
@@ -725,8 +725,9 @@
 
     .task__content {
         font-size: var(--font-size-base);
-        line-height: 1.8;
+        line-height: 1.2;
         color: var(--color-text-primary);
+        white-space: normal;
     }
 
     /* Навигация урока */
@@ -820,7 +821,7 @@
     }
 
     .form__textarea--task {
-        min-height: 100px;
+        min-height: 40dvh;
     }
 
     .form__error {
@@ -1094,6 +1095,10 @@
 @media (width >=1600px) {
     .lessons__list {
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+
+    .tests {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 

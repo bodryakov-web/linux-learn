@@ -42,7 +42,7 @@ function handleAnswerClick(event) {
     const allAnswers = testContainer.querySelectorAll('[data-answer]');
     allAnswers.forEach(answerButton => {
         answerButton.disabled = true;
-        answerButton.style.cursor = 'not-allowed';
+        // answerButton.style.cursor = 'not-allowed';
     });
     
     // Проверяем правильность ответа

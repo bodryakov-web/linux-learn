@@ -50,7 +50,7 @@ require_once __DIR__ . '/header.php';
                     <?php foreach ($content['tasks'] as $task): ?>
                         <div class="task">
                             <div class="task__content">
-                                <?php echo htmlspecialchars($task['task']); ?>
+                                <?php echo nl2br(htmlspecialchars($task['task'])); ?>
                             </div>
                         </div>
                     <?php endforeach; ?>

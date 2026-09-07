@@ -158,7 +158,7 @@ if (!empty($formData)) {
                         <div class="tasks-list__item" data-task-item>
                             <textarea name="tasks[]" 
                                       class="form__textarea form__textarea--task"
-                                      placeholder="Условие задачи"><?php echo $isEdit && $content ? strip_tags($task['task']) : ''; ?></textarea>
+                                      placeholder="Условие задачи"><?php echo $isEdit && $content ? htmlspecialchars($task['task']) : ''; ?></textarea>
                             <button type="button" 
                                     class="button button--small button--danger" 
                                     data-remove-task
