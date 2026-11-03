@@ -697,9 +697,9 @@
         border-color: var(--color-primary);
     }
 
-    /* .test__answer:disabled {
-        cursor: not-allowed;
-    } */
+    .test__answer:disabled {
+        color: var(--color-text-primary);
+    }
 
     .test__answer:disabled:hover {
         border-color: var(--color-border);
